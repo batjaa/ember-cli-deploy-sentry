@@ -61,13 +61,19 @@ module.exports = {
           return new SilentError("Could not find revision key to fingerprint Sentry revision with.");
         }
 
+        var files = glob.sync(path.join(context.distDir, "assets/smee-*.js"));
+        var indexPath = files.find(function(filePath) {
+          return /smee(?!-vendor)/.test(filePath);
+        })
+
         // TODO instead of plainly reading index.html, minimatch
         // getConfig('revision patterns') on context.distFiles
-        var indexPath = path.join(context.distDir, "index.html");
-        var index = fs.readFileSync(indexPath, 'utf8');
-        var index = index.replace('<meta name="sentry:revision">',
-                                  '<meta name="sentry:revision" content="'+revisionKey+'">');
-        fs.writeFileSync(indexPath, index);
+        // var indexPath = path.join(context.distDir, "index.html");
+        fs.appendFileSync(indexPath, '\nwindow.REVISION_KEY=' + revisionKey);
+        // var index = fs.readFileSync(indexPath, 'utf8');
+        // var index = index.replace('<meta name="sentry:revision">',
+        //                           '<meta name="sentry:revision" content="'+revisionKey+'">');
+        // fs.writeFileSync(indexPath, index);
       },
 
       _createRelease: function createRelease(sentrySettings) {
