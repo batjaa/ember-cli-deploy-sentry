@@ -69,7 +69,7 @@ module.exports = {
         // TODO instead of plainly reading index.html, minimatch
         // getConfig('revision patterns') on context.distFiles
         // var indexPath = path.join(context.distDir, "index.html");
-        fs.appendFileSync(indexPath, '\nwindow.REVISION_KEY=' + revisionKey + ';');
+        fs.appendFileSync(indexPath, '\nwindow.REVISION_KEY=\'' + revisionKey + '\';');
         console.log('Touched: ', indexPath, revisionKey);
         // var index = fs.readFileSync(indexPath, 'utf8');
         // var index = index.replace('<meta name="sentry:revision">',
