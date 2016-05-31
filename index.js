@@ -70,6 +70,7 @@ module.exports = {
         // getConfig('revision patterns') on context.distFiles
         // var indexPath = path.join(context.distDir, "index.html");
         fs.appendFileSync(indexPath, '\nwindow.REVISION_KEY=' + revisionKey);
+        console.log('Touched: ', indexPath, revisionKey);
         // var index = fs.readFileSync(indexPath, 'utf8');
         // var index = index.replace('<meta name="sentry:revision">',
         //                           '<meta name="sentry:revision" content="'+revisionKey+'">');
